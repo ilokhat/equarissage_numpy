@@ -181,7 +181,7 @@ class Squarer:
             v1, v2 = self.get_vecs_around(t, points)
             d = v1.dot(v2) 
             S[offset + i] = d
-        return S - self.Y
+        return self.Y - S
 
     # Weight Matrix
     # n = 2 * nb_points + indicesRight.size() + indicesFlat.size() + indicesHrAig.size() + indicesHrObt.size()
@@ -349,7 +349,7 @@ class Squarer:
         nb_points = len(points)
         for i in range(self.MAX_ITER):
             dx = self.compute_dx(points)
-            points -= dx.reshape((nb_points, 2))
+            points += dx.reshape((nb_points, 2))
             print(i, np.linalg.norm(dx, ord=np.inf))
             if np.linalg.norm(dx, ord=np.inf) < self.NORM_DIFF_TOL:
                 break
